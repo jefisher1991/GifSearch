@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>GIF</title>
@@ -12,18 +12,41 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="monuments.css">
+    <style>
+    img {
+        width: 300px;
+        height: auto;
+    }
+    </style>
 </head>
+
 <body>
-<div id="page"> 
-
-<div id= "topicsHTMLId"> </div>
-
-</div>
-
-
-
-
-<script src="monuments.js"></script>
+    <div class="jumbotron">
+        <h1>Gif Search</h1>
+        <p>Powered By Giphy</p>
+    </div>
+    <div id="page">
+        <div id="topicsHTMLId"> </div>
+   
+    <!-- /.col-lg-6 -->
+    
+        <div class="input-group searchBar">
+            <input type="text" class="form-control searchText" placeholder="Search for...">
+            <span class="input-group-btn">
+        <button class="btn btn-default searchbutton" type="button">Search</button>
+      </span>
+        </div>
+        <!-- /input-group -->
+ 
+    </div>
+    <!-- /.row -->
+    <br>
+    <br>
+    <br>
+    <div id="displayMonuments"></div>
+     </div>
+    </div>
+    <script src="monuments.js"></script>
 </body>
 
 </html>

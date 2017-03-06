@@ -6,15 +6,73 @@
 // Add a form to your page takes the value from a user input box and adds it into your topics array. Then make a function call that takes each topic in the array remakes the buttons on the page. 
 
 // the variables/ topics
-var topics = ["Taj Mahal", "Great Wall of China", "Stonehenge", "Colosseum", "Statue of Liberty"]
+var topics = ["Taj Mahal", "Great Wall of China", "Stonehenge", "Colosseum", "Statue of Liberty"];
+
+
+$("searchbutton").click(var search = $("#searchText"); 
+// console.log(search);
 
 
 // creates the buttons at the top
-for (i = 0; i < topics.length; i++) 
-  $("#topicsHTMLId").append("<input type='button' value='" + topics[i]+"'/>");
-    
-
-function grabImages ()
+for (i = 0; i < topics.length; i++)
+    $("#topicsHTMLId").append("<button>" + topics[i] + "</button> ");
 
 
+function displayMonuments(urlAnimate, urlStill) {
+    var html = "";
+    for (var i = 0; i < urlAnimate.length; i++) {
+        var tempHTML = "<img class=gif src=" + urlStill[i] + " ";
+        tempHTML += "data-still=" + urlStill[i] + " ";
+        tempHTML += "data-animate=" + urlAnimate[i] + " ";
+        tempHTML += "data-state='still' ";
+        tempHTML += " >";
+        html += tempHTML;
+    }
+    $("#displayMonuments").html(html);
+}
 
+
+function data(topic) {
+    // Constructing a queryURL using the animal name
+    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" +
+        topic + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+
+    // Performing an AJAX request with the queryURL
+    $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+        // After data comes back from the request
+        .done(function(response) {
+            console.log(response);
+            var urlList = []
+            var stillList = []
+            for (var gif of response.data) {
+                var myUrl = "http://i.giphy.com/" + gif.id + ".gif";
+                urlList.push(myUrl);
+                stillList.push(gif.images.original_still.url)
+            }
+            displayMonuments(urlList, stillList);
+        });
+}
+
+$(document).ready(function() {
+
+    $("button").on("click", function() {
+        var currentTopic = $(this).text();
+        data(currentTopic);
+    });
+
+    $("body").on("click", ".gif", function() {
+      var state = $(this).attr("data-state");
+    if (state === "still") {
+      $(this).attr("src", $(this).attr("data-animate"));
+      $(this).attr("data-state", "animate");
+    } else {
+      $(this).attr("src", $(this).attr("data-still"));
+      $(this).attr("data-state", "still");
+    }
+    });
+
+});
