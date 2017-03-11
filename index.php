@@ -1,2 +1,2 @@
-<?php include_once("trivia.html"); ?>
+<?php include_once("Gif.html"); ?>
 
